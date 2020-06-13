@@ -16,3 +16,19 @@ print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
+
+from dotenv import load_dotenv
+import os
+
+os.chdir('..') # go back one directory where the .env file is saved
+
+load_dotenv() #> loads contents of the .env file into the script's environment
+
+API_KEY = os.getenv("ALPHAVANTAGE_API_KEY")
+
+
+import requests
+
+request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&outputsize=compact&apikey=" + API_KEY
+response = requests.get(request_url)
+print(response.text)
