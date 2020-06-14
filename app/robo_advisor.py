@@ -129,7 +129,7 @@ elif closing_price < one_stdev_below:
     recommendation = "SELL or DO NOT BUY"
     reason = (f"LAST CLOSING PRICE ({to_usd(closing_price)}) IS LOWER THAN ONE STANDARD DEVIATION BELOW THE MEAN ({to_usd(one_stdev_below)}), "
     f"WHICH MAY INDICATE THAT THE PRICE HAS DROPPED TOO SIGNIFICANTLY AND IS ON A DOWNWARD TREND.")
-elif closing_price = one_stdev_below:
+elif closing_price == average:
     recommendation = "DO NOT BUY"
     reason = (f"LAST CLOSING PRICE EQUAL TO THE AVERAGE, THEREFORE NO INDICATION ON ANY MOVEMENT.")    
 
@@ -150,3 +150,12 @@ print(f"RECOMMENDATION REASON: {reason}")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
+
+
+# CREATING LINE CHART
+import plotly.graph_objects as go
+df_transpose = df_transpose.reset_index() # making current index column into a regular column that can be plotted
+
+fig = go.Figure([go.Scatter(x=df_transpose['timestamp'], y=df_transpose['4. close'])]) # https://plotly.com/python/time-series/
+fig.update_layout(title_text=f"{stock_symbol} stock price for most recent {days_lookback} days")
+fig.show()
